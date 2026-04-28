@@ -14,13 +14,17 @@ def stopMotors():
     back_motors.stop()
 
 def moveMotors (seconds:float, steer:int, power:int):
+    """This function makes the robot either move forward or backwards.
+    It takes into account the steering values, so it can also be used to make the robot turn"""
     front_motors.start(steer, power)
     back_motors.start(steer, power)
     wait_for_seconds(seconds)
     stopMotors()
 
 def moveSideways (seconds:float, steer:int, power:int):
-    """Negative values make it turn left"""
+    """Negative steering values make it move sideways left, and positive values sideways right"""
+    if (steer == 0): #for sideways to work steering has to be different to 0, so defaulting to right
+        steer = 100
     front_motors.start(steer, power)
     back_motors.start(steer, power*-1)
     wait_for_seconds(seconds)
